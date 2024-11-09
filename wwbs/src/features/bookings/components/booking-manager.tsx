@@ -82,6 +82,7 @@ export const BookingManager = ({
                 finished: false,
                 endLatitude: hikingTrailsStage.endLatitude,
                 endLongitude: hikingTrailsStage.endLongitude,
+                accommodationTitle: hikingTrailsStage.title
             },
         ]);
     };
@@ -114,6 +115,8 @@ export const BookingManager = ({
             finished: true,
             endLatitude: oldBookingStage?.endLatitude ?? null,
             endLongitude: oldBookingStage?.endLongitude ?? null,
+            accommodationTitle: oldBookingStage?.accommodationTitle ?? null
+
         });
 
         newStages.sort((a, b) => a.startDate.valueOf() - b.startDate.valueOf());
@@ -149,7 +152,8 @@ export const BookingManager = ({
                 hikers: booking.hikers,
                 finished: false,
                 endLatitude: hikingTrailsStage.endLatitude,
-                endLongitude: hikingTrailsStage.endLongitude
+                endLongitude: hikingTrailsStage.endLongitude,
+                accommodationTitle: hikingTrailsStage.title
             },
         ]);
     };
