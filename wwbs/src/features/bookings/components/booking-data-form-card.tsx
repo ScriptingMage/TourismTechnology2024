@@ -24,7 +24,7 @@ export const BookingDataFormCard = ({ onBookingDateChange, onHikerChange, onSave
   }
 
   return (
-    <div className="border border-gray-500 p-4 w-auto">
+    <div className="border border-gray-500 p-4 w-full">
       <h2 className="text-2xl font-bold mb-4">Start</h2>
       <div className="flex flex-col gap-4">
         <div className="grid w-full max-w-sm items-center gap-1.5">

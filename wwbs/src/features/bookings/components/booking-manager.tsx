@@ -10,12 +10,19 @@ import { Prisma } from "@prisma/client";
 interface BookingManagerProps {
   hikingTrail: Prisma.HikingTrailGetPayload<{
     include: {
-      HikingTrailStage: true,
+      hikingTrailStage: true,
+      hikingTrailAccommodation: true,
     },
   }>;
+  accommodations: Prisma.HikingTrailAccommodationGetPayload<{
+    include: {
+      accommodation: true,
+      hikingTrailStage: true,
+    },
+  }>[];
 }
 
-export const BookingManager = ({ hikingTrail }: BookingManagerProps) => {
+export const BookingManager = ({ hikingTrail, accommodations }: BookingManagerProps) => {
   const [booking, setBooking] = useState<Booking>({
     id: Math.floor(Math.random() * 1000),
     hikingTrailId: hikingTrail.id,
@@ -43,7 +50,7 @@ export const BookingManager = ({ hikingTrail }: BookingManagerProps) => {
 
   const handleBookingSave = () => {
 
-    const hikingTrailsStageId = hikingTrail.HikingTrailStage?.find((stage) => stage.position == currentStage)?.id
+    const hikingTrailsStageId = hikingTrail.hikingTrailStage?.find((stage) => stage.position == currentStage)?.id
 
     if(!hikingTrailsStageId) {
       console.log("No stage found");
@@ -68,7 +75,7 @@ export const BookingManager = ({ hikingTrail }: BookingManagerProps) => {
   const handleStageSave = (date: Date) => {
 
     const newStagePosition = currentStage + 1;
-    const hikingTrailsStageId = hikingTrail.HikingTrailStage?.find((stage) => stage.position == newStagePosition)?.id
+    const hikingTrailsStageId = hikingTrail.hikingTrailStage?.find((stage) => stage.position == newStagePosition)?.id
 
     if(!hikingTrailsStageId) {
       console.log("No stage found");
@@ -92,6 +99,8 @@ export const BookingManager = ({ hikingTrail }: BookingManagerProps) => {
     setCurrentStage(newStagePosition);
   };
 
+  console.log(accommodations);
+
   return (
     <div className="flex flex-col items-start gap-8">
       <BookingDataFormCard
@@ -100,12 +109,15 @@ export const BookingManager = ({ hikingTrail }: BookingManagerProps) => {
         onSave={handleBookingSave}
       />
       {bookingStages.map((bookingStage) => {
-        const hikingTrailsStage = hikingTrail.HikingTrailStage?.find((stage) => stage.id == bookingStage.hikingTrailStageId);
+        const hikingTrailsStage = hikingTrail.hikingTrailStage?.find((stage) => stage.id == bookingStage.hikingTrailStageId);
+        
         if(hikingTrailsStage) {
+          const hikingStageAccommodation = accommodations.filter((accommodation) => accommodation.hikingTrailStageId == hikingTrailsStage.id);
           return (
             <HikingStageBookingCard
               key={bookingStage.id}
               hikingTrailStage={hikingTrailsStage}
+              accommodations={hikingStageAccommodation}
               stageDate={bookingStage.startDate}
               onAccomodationSelect={handleStageSave}
             />

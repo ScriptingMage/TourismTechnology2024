@@ -34,7 +34,8 @@ export const fetchHikingTrail = async (id: number) => {
         id: id,
       },
       include: {
-        HikingTrailStage: true,
+        hikingTrailStage: true,
+        hikingTrailAccommodation: true,
       },
     });
     
