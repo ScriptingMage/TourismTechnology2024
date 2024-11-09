@@ -39,7 +39,7 @@ const chartConfig = {
 
 export function DailyPieChart() {
     return (
-        <Card className="flex flex-col">
+        <Card className="flex flex-col h-full">
             <CardHeader className="items-center pb-4">
                 <CardTitle>Todays Bookings</CardTitle>
             </CardHeader>

@@ -42,9 +42,9 @@ const chartConfig = {
 
 export default function WeeklyOverview() {
     return (
-        <Card>
+        <Card className="h-full">
             <CardContent>
-                <CardHeader className="items-center pb-4">
+                <CardHeader className="items-center pb-4 h-full">
                     <CardTitle>Weekly Bookings</CardTitle>
                 </CardHeader>
                 <ChartContainer className="h-64" config={chartConfig}>
