@@ -1,15 +1,18 @@
 "use client";
 // components/Map.jsx
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import {Map, Marker, Source, Layer, MapRef} from "react-map-gl";
 import DeckGL from "@deck.gl/react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl, {LngLatBoundsLike} from "mapbox-gl";
 import {INITIAL_VIEW_STATE} from "../lib/mapconfig.js";
+import {atom} from "jotai/vanilla/atom";
+import {fetchAccommodationsForHikingTrail} from "@/features/accommodations/database/actions";
+import {useAtom} from "jotai/react/useAtom";
 
 const markerColors = "red";
 
-function getMapBounds(markers: { latitude: number; longitude: number }[]): LngLatBoundsLike {
+function getMapBounds(markers: { latitude: number; longitude: number; name: string }[]): LngLatBoundsLike {
     let minLat = 90;
     let maxLat = -90;
     let minLng = 180;
@@ -33,24 +36,47 @@ function getMapBounds(markers: { latitude: number; longitude: number }[]): LngLa
     ];
 }
 
+export type Accommodation = Awaited<ReturnType<typeof fetchAccommodationsForHikingTrail>>;
+
+const accomidationsAtom = atom<Accommodation>([])
+
 export default function LocationAggregatorMap() {
 
     const mapRef = useRef<MapRef>(null);
-    const [activeMarkers, setActiveMarkers] = useState([{longitude: 11.391, latitude: 47.2675, name: "Location"}]);
+    const [accomodations, setAccomodations] = useAtom(accomidationsAtom)
 
-    function addRandomMarker() {
-        const lastMarker = activeMarkers[activeMarkers.length - 1];
-        // Random marker close to the last marker
-        const newMarker = {longitude: lastMarker.longitude + 0.1, latitude: lastMarker.latitude + 0.1, name: "Location"};
-        const newMarkers = [...activeMarkers, newMarker];
+    const activeMarkers = useMemo(() => {
+        const newMarkers = accomodations.filter(a => a.hikingTrailStage.endLatitude == null || a.hikingTrailStage.endLongitude).map(accomodation => {
+            return {
+                longitude: accomodation.hikingTrailStage.endLongitude!,
+                latitude: accomodation.hikingTrailStage.endLatitude!,
+                name: accomodation.hikingTrailStage.title
+            }
+        })
 
-        setActiveMarkers(newMarkers);
         if (mapRef.current) {
             const map = mapRef.current.getMap();
             const mapBounds = getMapBounds(newMarkers);
             map.fitBounds(mapBounds);
         }
-    }
+        return newMarkers;
+    }, [accomodations]);
+
+    // const [activeMarkers, setActiveMarkers] = useState([{longitude: 11.391, latitude: 47.2675, name: "Location"}]);
+    //
+    // function addRandomMarker() {
+    //     const lastMarker = activeMarkers[activeMarkers.length - 1];
+    //     // Random marker close to the last marker
+    //     const newMarker = {longitude: lastMarker.longitude + 0.1, latitude: lastMarker.latitude + 0.1, name: "Location"};
+    //     const newMarkers = [...activeMarkers, newMarker];
+    //
+    //     setActiveMarkers(newMarkers);
+    //     if (mapRef.current) {
+    //         const map = mapRef.current.getMap();
+    //         const mapBounds = getMapBounds(newMarkers);
+    //         map.fitBounds(mapBounds);
+    //     }
+    // }
 
 
     const lineData = {
@@ -112,7 +138,7 @@ export default function LocationAggregatorMap() {
                     </Source>
                 </Map>
             </div>
-            <button onClick={addRandomMarker}>Add Marker</button>
+            {/*<button onClick={addRandomMarker}>Add Marker</button>*/}
         </div>
     );
 }
