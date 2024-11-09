@@ -13,6 +13,12 @@
 /.next/
 /out/
 
+*.env
+
+.idea/*
+
+/.idea
+
 # production
 /build
 
