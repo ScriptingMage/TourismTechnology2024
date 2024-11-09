@@ -1,19 +1,19 @@
 # DB Structure
 
-## hiking-trails
+## hiking_trails
 - id
 - name
 - description
 - length
 
-## hiking-trails-leg
+## hiking_trail_stages
 - id
-- hiking-trails-id
-- start-point
-- end-point
+- position
+- hiking_trail_id
+- title
 - distance
 
-## overnight-stays (hotel)
+## accommodations
 - id
 - name
 - description
@@ -21,21 +21,20 @@
 - lat
 - lon
 
-## hiking-trails-overnight-stays
+## hiking_trail_stage_accommodations
 - id
-- hiking-trails-id
-- overnight-stays-id
+- hiking_trail_stage_id
+- accomodation_id
 
-## hiking-trails-booking
+## hiking_trail_bookings
 - id
-- hiking-trails-id
+- hiking_trail_id
 - name
-- start-date
-- end-date
-- beds
+- start_date
+- hikers
 
-## hiking-trails-booking-leg
+## hiking_trail_booking_stages
 - id
-- hiking-trails-booking-id
-- overnight-stays-id
-- hiking-trails-leg-id
+- hiking_trail_booking_id
+- accommodation_id
+- hiking_trail_stage_id

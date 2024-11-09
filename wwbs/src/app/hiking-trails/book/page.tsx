@@ -1,95 +1,47 @@
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/datepicker";
+import { DateRangePicker } from "@/components/ui/daterangepicker";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { HikingStageBookingCard } from "@/features/bookings/components/hiking-stage-booking-card";
 
 export default function Page() {
   return (
-    <div className="container mx-auto py-20">
-      <h1 className="text-4xl font-bold mb-20">Book a Hiking Trail</h1>
+    <div className="container max-w-7xl mx-auto py-20">
+      <h1 className="text-4xl font-bold mb-8">Book a Hiking Trail</h1>
       <div className="flex flex-col items-start gap-8">
         <div className="border border-gray-500 p-4 w-auto">
-          <h2 className="text-2xl font-bold">Start</h2>
-          <div className="relative">
-            <DatePicker />
-          </div>
-          <div>Number of hikers:</div>
-          <Input className="mt-4" type="number" placeholder="2 Hikers" />
-        </div>
-
-        <div className="border border-gray-500 p-4 w-auto">
-          <div className="text-sm opacity-50">Date Stage 1</div>
-          <h2 className="text-2xl font-bold">1. Stage: Start - End</h2>
-          <p>Short description of the stage</p>
-          <h3 className="text-xl font-bold border-t border-gray-200 mt-4 pt-4">
-            Overnight Stays:
-          </h3>
-          <div className="grid gap-2 mt-2">
-            <div className="grid grid-cols-3 gap-4 items-center">
-              <div className="font-bold">Stay Name 1</div>
-              <div>3 Betten frei</div>
-              <div>
-                <Button>auswählen</Button>
-              </div>
+          <h2 className="text-2xl font-bold mb-4">Start</h2>
+          <div className="flex flex-col gap-4">
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label>Pick your start date:</Label>
+              <DatePicker />
             </div>
-            <div className="grid grid-cols-3 gap-4 items-center">
-              <div className="font-bold">Stay Name 2</div>
-              <div>0 Betten frei</div>
-              <div>
-                <Button disabled>auswählen</Button>
-              </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="hikers">Hikers:</Label>
+              <Input type="number" id="hikers" placeholder="Hikers" />
             </div>
           </div>
         </div>
 
         <div className="border border-gray-500 p-4 w-auto">
-          <div className="text-sm opacity-50">Date Stage 2</div>
-          <h2 className="text-2xl font-bold">2. Stage: Start - End</h2>
-          <p>Short description of the stage</p>
-          <h3 className="text-xl font-bold border-t border-gray-200 mt-4 pt-4">
-            Overnight Stays:
-          </h3>
-          <div className="grid gap-4 mt-4">
-            <div className="grid grid-cols-3 gap-4 items-center">
-              <div className="font-bold">Stay Name 1</div>
-              <div>3 Betten frei</div>
-              <div>
-                <Button>auswählen</Button>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 items-center">
-              <div className="font-bold">Stay Name 2</div>
-              <div>0 Betten frei</div>
-              <div>
-                <Button disabled>auswählen</Button>
-              </div>
-            </div>
-          </div>
+          <h2 className="text-2xl font-bold">No availability</h2>
+          <p>Unfortunately there is no availability for this hiking trail.</p>
         </div>
 
-        <div className="border border-gray-500 p-4 w-auto">
-          <div className="text-sm opacity-50">Date Stage 3</div>
-          <h2 className="text-2xl font-bold">3. Stage: Start - End</h2>
-          <p>Short description of the stage</p>
-          <h3 className="text-xl font-bold border-t border-gray-200 mt-4 pt-4">
-            Overnight Stays:
-          </h3>
-          <div className="grid gap-4 mt-4">
-            <div className="grid grid-cols-3 gap-4 items-center">
-              <div className="font-bold">Stay Name 1</div>
-              <div>3 Betten frei</div>
-              <div>
-                <Button>auswählen</Button>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 items-center">
-              <div className="font-bold">Stay Name 2</div>
-              <div>0 Betten frei</div>
-              <div>
-                <Button disabled>auswählen</Button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <HikingStageBookingCard
+            hikingTrailStage={{
+                id: 1,
+                hikingTrailId: 1,
+                position: 1,
+                title: "Start",
+                description: "Short description of the stage",
+                distance: 12.5,
+            }}
+            stageDate={new Date()}
+        />
+
+        
         <div className="border border-gray-500 p-4 w-auto">
           <div className="text-sm opacity-50">Date Stage 4</div>
           <h2 className="text-2xl font-bold">4. Stage: Start - End</h2>
