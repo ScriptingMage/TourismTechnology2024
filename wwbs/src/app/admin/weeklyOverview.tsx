@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import {Bar, BarChart, LabelList, XAxis, YAxis} from "recharts"
+import {TrendingUp} from "lucide-react";
+import {Bar, BarChart, LabelList, XAxis, YAxis} from "recharts";
 
 import {
     Card,
@@ -10,35 +10,43 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/card";
 import {
     ChartConfig,
     ChartContainer,
     ChartTooltip,
     ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/components/ui/chart";
 import React from "react";
+
 const chartData = [
-    { month: "Monday", desktop: 7 },
-    { month: "Tuesday", desktop: 8 },
-    { month: "Wednesday", desktop: 6 },
-    { month: "Thursday", desktop: 5 },
-    { month: "Friday", desktop: 5 },
-    { month: "Saturday", desktop: 6 },
-    { month: "Sunday", desktop: 7 },
-]
+    {month: "Monday", total: 30, booked: 5, notBooked: 25},
+    {month: "Tuesday", total: 30, booked: 8, notBooked: 22},
+    {month: "Wednesday", total: 26, booked: 2, notBooked: 24},
+    {month: "Thursday", total: 25, booked: 4, notBooked: 21},
+    {month: "Friday", total: 15, booked: 9, notBooked: 6},
+    {month: "Saturday", total: 26, booked: 12, notBooked: 14},
+    {month: "Sunday", total: 27, booked: 11, notBooked: 16},
+];
 
 const chartConfig = {
-    desktop: {
+    total: {
         label: "Bookings",
-        color: "hsl(var(--chart-1))",
+        color: "#4CAF50",
     },
-} satisfies ChartConfig
+    booked: {
+        label: "Bookings",
+        color: "#F44336",
+    },
+} satisfies ChartConfig;
 
-export function Component() {
+export default function WeeklyOverview() {
     return (
         <Card>
             <CardContent>
+                <CardHeader className="items-center pb-4">
+                    <CardTitle>Weekly Bookings</CardTitle>
+                </CardHeader>
                 <ChartContainer className="h-64" config={chartConfig}>
                     <BarChart
                         accessibilityLayer
@@ -48,7 +56,7 @@ export function Component() {
                             left: -20,
                         }}
                     >
-                        <XAxis type="number" dataKey="desktop" hide />
+                        <XAxis type="number" dataKey="total" hide/>
                         <YAxis
                             dataKey="month"
                             type="category"
@@ -59,11 +67,30 @@ export function Component() {
                         />
                         <ChartTooltip
                             cursor={false}
-                            content={<ChartTooltipContent hideLabel />}
+                            content={<ChartTooltipContent hideLabel/>}
                         />
-                        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={5} >
+                        <Bar
+                            dataKey="booked"
+                            fill="var(--color-booked)"
+                            radius={0}
+                            stackId="a"
+                        >
                             <LabelList
-                                dataKey="desktop"
+                                dataKey="booked"
+                                position="right"
+                                offset={8}
+                                className="fill-foreground"
+                                fontSize={12}
+                            />
+                        </Bar>
+                        <Bar
+                            dataKey="notBooked"
+                            fill="#4CAF50"
+                            radius={[0, 5, 5, 0]}
+                            stackId="a"
+                        >
+                            <LabelList
+                                dataKey="total"
                                 position="right"
                                 offset={8}
                                 className="fill-foreground"
@@ -74,5 +101,5 @@ export function Component() {
                 </ChartContainer>
             </CardContent>
         </Card>
-    )
+    );
 }

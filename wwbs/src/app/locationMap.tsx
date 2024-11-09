@@ -11,11 +11,11 @@ const markerColors = "red";
 
 export default function LocationAggregatorMap() {
   const activeMarkers = [
-    { longitude: 11.391, latitude: 47.2675, name: "Hurensohn" },
-    { longitude: 12.391, latitude: 48.2675, name: "Hurensohn Nr. 2" },
-    { longitude: 13.391, latitude: 49.2675, name: "Hurensohn Nr. 3" },
-    { longitude: 14.391, latitude: 50.2675, name: "Hurensohn Mambo Number 5" },
-    { longitude: 15.391, latitude: 46.2675, name: "Hurensohn 6" },
+    { longitude: 11.391, latitude: 47.2675, name: "Location" },
+    { longitude: 12.391, latitude: 48.2675, name: "Location Nr. 2" },
+    { longitude: 13.391, latitude: 49.2675, name: "Location Nr. 3" },
+    { longitude: 14.391, latitude: 50.2675, name: "Location Mambo Number 5" },
+    { longitude: 15.391, latitude: 46.2675, name: "Location 6" },
   ];
 
   const lineData = {
