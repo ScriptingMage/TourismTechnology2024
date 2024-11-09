@@ -39,10 +39,9 @@ const chartConfig = {
 
 export function DailyPieChart() {
     return (
-        <Card className="flex flex-col">
-            <CardHeader className="items-center pb-0">
-                <CardTitle>Pie Chart - Custom Label</CardTitle>
-                <CardDescription>January - June 2024</CardDescription>
+        <Card className="flex flex-col h-full">
+            <CardHeader className="items-center pb-4">
+                <CardTitle>Todays Bookings</CardTitle>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 <ChartContainer
