@@ -35,6 +35,8 @@
 
 ## booking_stages
 - id
+- start_date
+- end_date
 - hiking_trail_booking_id
 - accommodation_id
 - hiking_trail_stage_id

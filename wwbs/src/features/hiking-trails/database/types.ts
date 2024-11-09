@@ -1,3 +1,5 @@
+import { HikingTrailList } from "../components/hiking-trail-list";
+
 export interface HikingTrail {
     id: number;
     name: string;
