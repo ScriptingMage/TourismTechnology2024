@@ -6,7 +6,6 @@ import {Booking, BookingStage} from "../database/types";
 import {BookingDataFormCard} from "./booking-data-form-card";
 import {addDays, set} from "date-fns";
 import {Prisma} from "@prisma/client";
-import {atom} from "jotai/vanilla/atom";
 
 
 interface BookingManagerProps {

@@ -6,9 +6,9 @@ import DeckGL from "@deck.gl/react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl, {LngLatBoundsLike} from "mapbox-gl";
 import {INITIAL_VIEW_STATE} from "../lib/mapconfig.js";
-import {atom} from "jotai/vanilla/atom";
+import {atom} from "jotai";
 import {fetchAccommodationsForHikingTrail} from "@/features/accommodations/database/actions";
-import {useAtom} from "jotai/react/useAtom";
+import {useAtom} from "jotai";
 
 const markerColors = "red";
 
