@@ -3,9 +3,9 @@ import {fetchHikingTrail} from "@/features/hiking-trails/database/actions";
 import LocationAggregatorMap from "@/app/locationMap";
 import {Card} from "@/components/ui/card";
 
-export default async function Page({params}: { params: { id: number } }) {
-    const hikingTrail = await fetchHikingTrail(params.id);
-    const showMap = true;
+export default async function Page({params}: { params: { id: string } }) {
+    const hikingTrail = await fetchHikingTrail(parseInt(params.id));
+    const showMap = false;
 
     return (
         <div className="w-full min-h-screen flex gap-8">

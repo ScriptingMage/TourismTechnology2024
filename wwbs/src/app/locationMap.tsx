@@ -4,10 +4,34 @@ import React, {useEffect, useRef, useState} from "react";
 import {Map, Marker, Source, Layer, MapRef} from "react-map-gl";
 import DeckGL from "@deck.gl/react";
 import "mapbox-gl/dist/mapbox-gl.css";
-import mapboxgl from "mapbox-gl";
+import mapboxgl, {LngLatBoundsLike} from "mapbox-gl";
 import {INITIAL_VIEW_STATE} from "../lib/mapconfig.js";
 
 const markerColors = "red";
+
+function getMapBounds(markers: { latitude: number; longitude: number }[]): LngLatBoundsLike {
+    let minLat = 90;
+    let maxLat = -90;
+    let minLng = 180;
+    let maxLng = -180;
+    markers.forEach((marker) => {
+        if (marker.latitude < minLat) minLat = marker.latitude;
+        if (marker.latitude > maxLat) maxLat = marker.latitude;
+        if (marker.longitude < minLng) minLng = marker.longitude;
+        if (marker.longitude > maxLng) maxLng = marker.longitude;
+    });
+
+    // Add a bit of padding
+    minLat -= 0.1;
+    maxLat += 0.1;
+    minLng -= 0.1;
+    maxLng += 0.1;
+
+    return [
+        [minLng, minLat],
+        [maxLng, maxLat],
+    ];
+}
 
 export default function LocationAggregatorMap() {
 
@@ -21,25 +45,10 @@ export default function LocationAggregatorMap() {
         const newMarkers = [...activeMarkers, newMarker];
 
         setActiveMarkers(newMarkers);
-        console.log("Adding marker", mapRef.current);
         if (mapRef.current) {
             const map = mapRef.current.getMap();
-            console.log("Map", map);
-            let minLat = 90;
-            let maxLat = -90;
-            let minLng = 180;
-            let maxLng = -180;
-            activeMarkers.forEach((marker) => {
-                if (marker.latitude < minLat) minLat = marker.latitude;
-                if (marker.latitude > maxLat) maxLat = marker.latitude;
-                if (marker.longitude < minLng) minLng = marker.longitude;
-                if (marker.longitude > maxLng) maxLng = marker.longitude;
-            });
-
-            map.fitBounds([
-                [minLng, minLat],
-                [maxLng, maxLat],
-            ]);
+            const mapBounds = getMapBounds(newMarkers);
+            map.fitBounds(mapBounds);
         }
     }
 
