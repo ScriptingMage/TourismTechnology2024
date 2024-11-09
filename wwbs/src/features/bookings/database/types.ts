@@ -16,4 +16,7 @@ export interface BookingStage {
     accommodationId: number;
     hikingTrailStageId: number;
     hikers: number;
+    finished: boolean;
+    endLatitude: number | null;
+    endLongitude: number | null;
 }

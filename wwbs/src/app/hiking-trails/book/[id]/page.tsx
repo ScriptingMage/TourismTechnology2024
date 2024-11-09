@@ -2,14 +2,14 @@ import {BookingManager} from "@/features/bookings/components/booking-manager";
 import {fetchHikingTrail} from "@/features/hiking-trails/database/actions";
 import LocationAggregatorMap from "@/app/locationMap";
 import {Card} from "@/components/ui/card";
-import { notFound } from "next/navigation";
-import { fetchAccommodationsForHikingTrail } from "@/features/accommodations/database/actions";
+import {notFound} from "next/navigation";
+import {fetchAccommodationsForHikingTrail} from "@/features/accommodations/database/actions";
 
 export default async function Page({params}: { params: { id: string } }) {
     const hikingTrail = await fetchHikingTrail(parseInt(params.id));
-    if(!hikingTrail) return notFound();
+    if (!hikingTrail) return notFound();
     const accommodations = await fetchAccommodationsForHikingTrail(hikingTrail.id);
-    const showMap = false;
+    const showMap = true;
 
     return (
         <div className="w-full min-h-screen flex gap-8">

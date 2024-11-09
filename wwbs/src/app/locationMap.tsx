@@ -9,6 +9,7 @@ import {INITIAL_VIEW_STATE} from "../lib/mapconfig.js";
 import {atom} from "jotai";
 import {fetchAccommodationsForHikingTrail} from "@/features/accommodations/database/actions";
 import {useAtom} from "jotai";
+import {BookingStage} from "@/features/bookings/database/types";
 
 const markerColors = "red";
 
@@ -36,21 +37,19 @@ function getMapBounds(markers: { latitude: number; longitude: number; name: stri
     ];
 }
 
-export type Accommodation = Awaited<ReturnType<typeof fetchAccommodationsForHikingTrail>>;
-
-const accomidationsAtom = atom<Accommodation>([])
+export const bookingStagesAtom = atom<BookingStage[]>([])
 
 export default function LocationAggregatorMap() {
 
     const mapRef = useRef<MapRef>(null);
-    const [accomodations, setAccomodations] = useAtom(accomidationsAtom)
+    const [accomodations, setAccomodations] = useAtom(bookingStagesAtom)
 
     const activeMarkers = useMemo(() => {
-        const newMarkers = accomodations.filter(a => a.hikingTrailStage.endLatitude == null || a.hikingTrailStage.endLongitude).map(accomodation => {
+        const newMarkers = accomodations.filter(a => a.endLatitude == null || a.endLongitude).map(accomodation => {
             return {
-                longitude: accomodation.hikingTrailStage.endLongitude!,
-                latitude: accomodation.hikingTrailStage.endLatitude!,
-                name: accomodation.hikingTrailStage.title
+                longitude: accomodation.endLongitude!,
+                latitude: accomodation.endLatitude!,
+                name: accomodation.id.toString()
             }
         })
 

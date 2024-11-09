@@ -17,17 +17,30 @@ import {
 interface DateRangePickerProps extends React.HTMLAttributes<HTMLDivElement> {
   defaultFrom?: Date;
   defaultTo?: Date;
+  onDateChange: (from: Date, to: Date) => void;
+  disabled?: boolean;
 }
 
 export function DateRangePicker({
   className,
   defaultFrom,
   defaultTo,
+  onDateChange,
+  disabled = false,
 }: DateRangePickerProps) {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: defaultFrom ?? new Date(),
     to: defaultTo ?? addDays(new Date(), 1),
   })
+
+  const handleDateChange = (date: DateRange | undefined) => {
+    setDate(date);
+
+    if(date != undefined && date.from != undefined && date.to != undefined) {
+      onDateChange(date.from, date.to);
+    }
+    
+  };
 1
   return (
     <div className={cn("grid gap-2", className)}>
@@ -35,6 +48,7 @@ export function DateRangePicker({
         <PopoverTrigger asChild>
           <Button
             id="date"
+            disabled={disabled}
             variant={"outline"}
             className={cn(
               "w-[300px] justify-start text-left font-normal",
@@ -62,7 +76,7 @@ export function DateRangePicker({
             mode="range"
             defaultMonth={date?.from}
             selected={date}
-            onSelect={setDate}
+            onSelect={handleDateChange}
             numberOfMonths={2}
           />
         </PopoverContent>
