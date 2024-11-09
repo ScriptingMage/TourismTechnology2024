@@ -19,13 +19,13 @@ import {
 } from "@/components/ui/chart";
 import React from "react";
 const chartData = [
-  { month: "Monday", total: 30, current: 5 },
-  { month: "Tuesday", total: 30, current: 8 },
-  { month: "Wednesday", total: 26, current: 2 },
-  { month: "Thursday", total: 25, current: 4 },
-  { month: "Friday", total: 15, current: 9 },
-  { month: "Saturday", total: 26, current: 12 },
-  { month: "Sunday", total: 27, current: 11 },
+  { month: "Monday", total: 30, booked: 5, notBooked: 25 },
+  { month: "Tuesday", total: 30, booked: 8, notBooked: 22 },
+  { month: "Wednesday", total: 26, booked: 2, notBooked: 24 },
+  { month: "Thursday", total: 25, booked: 4, notBooked: 21 },
+  { month: "Friday", total: 15, booked: 9, notBooked: 6 },
+  { month: "Saturday", total: 26, booked: 12, notBooked: 14 },
+  { month: "Sunday", total: 27, booked: 11, notBooked: 16 },
 ];
 
 const chartConfig = {
@@ -33,7 +33,7 @@ const chartConfig = {
     label: "Bookings",
     color: "#4CAF50",
   },
-  current: {
+  booked: {
     label: "Bookings",
     color: "#F44336",
   },
@@ -66,13 +66,13 @@ export default function WeeklyOverview() {
               content={<ChartTooltipContent hideLabel />}
             />
             <Bar
-              dataKey="total"
-              fill="var(--color-total)"
+              dataKey="booked"
+              fill="var(--color-booked)"
               radius={0}
               stackId="a"
             >
               <LabelList
-                dataKey="total"
+                dataKey="booked"
                 position="right"
                 offset={8}
                 className="fill-foreground"
@@ -80,13 +80,13 @@ export default function WeeklyOverview() {
               />
             </Bar>
             <Bar
-              dataKey="current"
-              fill="#F44336"
+              dataKey="notBooked"
+              fill="#4CAF50"
               radius={[0, 5, 5, 0]}
               stackId="a"
             >
               <LabelList
-                dataKey="current"
+                dataKey="total"
                 position="right"
                 offset={8}
                 className="fill-foreground"
