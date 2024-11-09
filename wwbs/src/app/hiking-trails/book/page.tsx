@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/datepicker";
+import { Input } from "@/components/ui/input";
 
 export default function Page() {
   return (
@@ -11,7 +12,8 @@ export default function Page() {
           <div className="relative">
             <DatePicker />
           </div>
-          <div>Number of people:</div>
+          <div>Number of hikers:</div>
+          <Input className="mt-4" type="number" placeholder="2 Hikers" />
         </div>
 
         <div className="border border-gray-500 p-4 w-auto">
@@ -98,9 +100,8 @@ export default function Page() {
           <div className="grid gap-4 mt-4">
             <div>
               <p>No Overnight stay available.</p>
-              <p>You can skip this stage for an
-              additional 5hrs and go straight to stage 5.</p>
-              <Button>Skip</Button>
+              <p>You can skip this stage for now.</p>
+              <Button className="mt-4">Skip</Button>
             </div>
           </div>
         </div>
