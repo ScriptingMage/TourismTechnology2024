@@ -1,5 +1,4 @@
 import { BookingManager } from "@/features/bookings/components/booking-manager";
-import { HikingStageBookingCard } from "@/features/bookings/components/hiking-stage-booking-card";
 import { fetchHikingTrail } from "@/features/hiking-trails/database/actions";
 
 export default async function Page({ params }: { params: { id: number } }) {
