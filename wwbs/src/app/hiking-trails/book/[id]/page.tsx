@@ -1,3 +1,4 @@
+import { BookingManager } from "@/features/bookings/components/booking-manager";
 import { HikingStageBookingCard } from "@/features/bookings/components/hiking-stage-booking-card";
 import { fetchHikingTrail } from "@/features/hiking-trails/database/actions";
 
@@ -7,16 +8,9 @@ export default async function Page({ params }: { params: { id: number } }) {
   return (
     <div className="container max-w-7xl mx-auto py-20">
       <h1 className="text-4xl font-bold mb-8">Book a Hiking Trail</h1>
+      <BookingManager hikingTrail={hikingTrail} />
       <div className="flex flex-col items-start gap-8">
-        {hikingTrail.stages && hikingTrail.stages.map((stage) => {
-          return (
-            <HikingStageBookingCard
-              key={stage.id}
-              hikingTrailStage={stage}
-              stageDate={new Date()}
-            />
-          );
-        })}
+        
 
         {/* <div className="border border-gray-500 p-4 w-auto">
           <h2 className="text-2xl font-bold">No availability</h2>
