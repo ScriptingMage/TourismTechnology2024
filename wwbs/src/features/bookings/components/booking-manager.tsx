@@ -1,14 +1,18 @@
 "use client";
 
-import { HikingTrail } from "@/features/hiking-trails/database/types";
 import { HikingStageBookingCard } from "./hiking-stage-booking-card";
 import { useState } from "react";
 import { Booking, BookingStage } from "../database/types";
 import { BookingDataFormCard } from "./booking-data-form-card";
 import { addDays, set } from "date-fns";
+import { Prisma } from "@prisma/client";
 
 interface BookingManagerProps {
-  hikingTrail: HikingTrail;
+  hikingTrail: Prisma.HikingTrailGetPayload<{
+    include: {
+      HikingTrailStage: true,
+    },
+  }>;
 }
 
 export const BookingManager = ({ hikingTrail }: BookingManagerProps) => {
@@ -39,7 +43,7 @@ export const BookingManager = ({ hikingTrail }: BookingManagerProps) => {
 
   const handleBookingSave = () => {
 
-    const hikingTrailsStageId = hikingTrail.stages?.find((stage) => stage.position == currentStage)?.id
+    const hikingTrailsStageId = hikingTrail.HikingTrailStage?.find((stage) => stage.position == currentStage)?.id
 
     if(!hikingTrailsStageId) {
       console.log("No stage found");
@@ -64,7 +68,7 @@ export const BookingManager = ({ hikingTrail }: BookingManagerProps) => {
   const handleStageSave = (date: Date) => {
 
     const newStagePosition = currentStage + 1;
-    const hikingTrailsStageId = hikingTrail.stages?.find((stage) => stage.position == newStagePosition)?.id
+    const hikingTrailsStageId = hikingTrail.HikingTrailStage?.find((stage) => stage.position == newStagePosition)?.id
 
     if(!hikingTrailsStageId) {
       console.log("No stage found");
@@ -96,7 +100,7 @@ export const BookingManager = ({ hikingTrail }: BookingManagerProps) => {
         onSave={handleBookingSave}
       />
       {bookingStages.map((bookingStage) => {
-        const hikingTrailsStage = hikingTrail.stages?.find((stage) => stage.id == bookingStage.hikingTrailStageId);
+        const hikingTrailsStage = hikingTrail.HikingTrailStage?.find((stage) => stage.id == bookingStage.hikingTrailStageId);
         if(hikingTrailsStage) {
           return (
             <HikingStageBookingCard

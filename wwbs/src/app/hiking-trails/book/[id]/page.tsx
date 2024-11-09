@@ -16,7 +16,7 @@ export default async function Page({params}: { params: { id: number } }) {
             </div>
             <div className="w-1/2 h-screen overflow-y-scroll py-10">
                 <h1 className="text-4xl font-bold mb-8">Book a Hiking Trail</h1>
-                <BookingManager hikingTrail={hikingTrail}/>
+                {hikingTrail && <BookingManager hikingTrail={hikingTrail}/>}
             </div>
         </div>
     );
