@@ -1,9 +1,10 @@
-import LocationAggregatorMap from "@/app/locationMap";
-
 export default function Home() {
-    const token = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
     return (
-        <main className="">
+        <main className="flex-grow">
+            <div>
+                <h1 className="text-4xl font-bold text-center">Welcome to Eagle Wing</h1>
+                <p className="text-center">Book Hütten easy</p>
+            </div>
         </main>
     );
 }
