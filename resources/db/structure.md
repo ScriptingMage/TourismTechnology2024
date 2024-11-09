@@ -26,14 +26,14 @@
 - hiking_trail_stage_id
 - accomodation_id
 
-## hiking_trail_bookings
+## bookings
 - id
 - hiking_trail_id
 - name
 - start_date
 - hikers
 
-## hiking_trail_booking_stages
+## booking_stages
 - id
 - hiking_trail_booking_id
 - accommodation_id
