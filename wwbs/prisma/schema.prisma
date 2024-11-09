@@ -27,6 +27,10 @@ model HikingTrailStage {
   description    String?
   position       Int
   distance       Int
-  hikingTrailId Int
+  hikingTrailId  Int
   hikingTrail    HikingTrail @relation(fields: [hikingTrailId], references: [id])
+  startLongitude Float?
+  startLatitude  Float?
+  endLongitude   Float?
+  endLatitude    Float?
 }
