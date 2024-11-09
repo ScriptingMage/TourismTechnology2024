@@ -9,13 +9,11 @@ import { INITIAL_VIEW_STATE } from "../lib/mapconfig.js";
 
 export default function LocationAggregatorMap() {
   return (
-    <div className="">
-      <DeckGL initialViewState={INITIAL_VIEW_STATE} controller={true}>
-        <Map
-          mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-          mapStyle="mapbox://styles/mapbox/outdoors-v12"
-        ></Map>
-      </DeckGL>
-    </div>
+    <DeckGL initialViewState={INITIAL_VIEW_STATE} controller={true}>
+      <Map
+        mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+        mapStyle="mapbox://styles/mapbox/outdoors-v12"
+      ></Map>
+    </DeckGL>
   );
 }
