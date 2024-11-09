@@ -64,7 +64,7 @@ export const HikingStageBookingCard = ({
       <h2 className="text-2xl font-bold">{`Stage ${hikingTrailStage.position}: ${hikingTrailStage.title}`}</h2>
       <p>{hikingTrailStage.description}</p>
       <h3 className="text-xl font-bold border-t border-gray-200 mt-4 pt-4">
-        Overnight Stays:
+        Accommodation:
       </h3>
       <div className="grid gap-2 mt-2">
         {accommodations.map((accommodation) => {
@@ -101,7 +101,9 @@ export const HikingStageBookingCard = ({
         })}
         {accommodations.length < 1 && (
           <div className="flex gap-4 items-center">
-            <div className="font-bold">No accommodations available</div>
+            <div className="font-bold">
+              <p>No online accommodations available.</p>
+            </div>
             {!bookingStage.finished && (
               <div>
                 <Button onClick={() => handleAccomodationSelect(-1)}>
