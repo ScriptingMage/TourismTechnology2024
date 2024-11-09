@@ -1,30 +1,24 @@
-import { Button } from "@/components/ui/button";
-import { DatePicker } from "@/components/ui/datepicker";
-import { DateRangePicker } from "@/components/ui/daterangepicker";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { HikingStageBookingCard } from "@/features/bookings/components/hiking-stage-booking-card";
+import { fetchHikingTrail } from "@/features/hiking-trails/database/actions";
 
-export default function Page() {
+export default async function Page({ params }: { params: { id: number } }) {
+  const hikingTrail = await fetchHikingTrail(params.id);
+
   return (
     <div className="container max-w-7xl mx-auto py-20">
       <h1 className="text-4xl font-bold mb-8">Book a Hiking Trail</h1>
       <div className="flex flex-col items-start gap-8">
-        <div className="border border-gray-500 p-4 w-auto">
-          <h2 className="text-2xl font-bold mb-4">Start</h2>
-          <div className="flex flex-col gap-4">
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label>Pick your start date:</Label>
-              <DatePicker />
-            </div>
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-              <Label htmlFor="hikers">Hikers:</Label>
-              <Input type="number" id="hikers" placeholder="Hikers" />
-            </div>
-          </div>
-        </div>
+        {hikingTrail.stages && hikingTrail.stages.map((stage) => {
+          return (
+            <HikingStageBookingCard
+              key={stage.id}
+              hikingTrailStage={stage}
+              stageDate={new Date()}
+            />
+          );
+        })}
 
-        <div className="border border-gray-500 p-4 w-auto">
+        {/* <div className="border border-gray-500 p-4 w-auto">
           <h2 className="text-2xl font-bold">No availability</h2>
           <p>Unfortunately there is no availability for this hiking trail.</p>
         </div>
@@ -56,7 +50,7 @@ export default function Page() {
               <Button className="mt-4">Skip</Button>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

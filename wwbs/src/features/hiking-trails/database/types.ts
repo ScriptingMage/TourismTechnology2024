@@ -5,6 +5,7 @@ export interface HikingTrail {
     name: string;
     description: string;
     length: number;
+    stages?: HikingTrailStage[];
 }
 
 export interface HikingTrailStage {
