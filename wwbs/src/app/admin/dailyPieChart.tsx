@@ -20,7 +20,7 @@ import {
 
 const chartData = [
     {status: "Booked", visitors: 275, fill: "#F44336"},
-    {status: "free", visitors: 200, fill: "#4CAF50"},
+    {status: "Free", visitors: 200, fill: "#4CAF50"},
 ];
 
 const chartConfig = {
@@ -32,14 +32,14 @@ const chartConfig = {
         color: "hsl(var(--chart-1))",
     },
     free: {
-        label: "free",
+        label: "Free",
         color: "hsl(var(--chart-2))",
     },
 } satisfies ChartConfig;
 
 export function DailyPieChart() {
     return (
-        <Card className="flex flex-col h-full">
+        <Card className="flex flex-col h-full w-full">
             <CardHeader className="items-center pb-4">
                 <CardTitle>Todays Bookings</CardTitle>
             </CardHeader>

@@ -11,11 +11,11 @@ export default function AdminPage() {
         <main className={"bg-gray-50 flex-grow"}>
             <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 <div className="text-2xl font-bold text-center pb-8">Booking Overview</div>
-                <div className="grid md:grid-cols-2 relative gap-4 h-[350px]">
-                    <div className="w-1/2 h-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 relative gap-4 h-[350px]">
+                    <div className="h-full w-full">
                         <DailyPieChart/>
                     </div>
-                    <div className="w-1/2 h-full">
+                    <div className="h-full w-full">
                         <WeeklyOverview/>
                     </div>
                 </div>
