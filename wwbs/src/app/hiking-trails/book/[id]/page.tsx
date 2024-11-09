@@ -5,7 +5,6 @@ import {Card} from "@/components/ui/card";
 
 export default async function Page({params}: { params: { id: string } }) {
     const hikingTrail = await fetchHikingTrail(parseInt(params.id));
-
     const showMap = false;
 
     return (

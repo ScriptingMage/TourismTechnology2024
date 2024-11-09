@@ -18,7 +18,8 @@ model HikingTrail {
   name             String             @db.VarChar(255)
   description      String?
   length           Int
-  HikingTrailStage HikingTrailStage[]
+  hikingTrailStage HikingTrailStage[]
+  hikingTrailAccommodation HikingTrailAccommodation[]
 }
 
 model HikingTrailStage {
@@ -27,6 +28,31 @@ model HikingTrailStage {
   description    String?
   position       Int
   distance       Int
-  hikingTrailId Int
+  hikingTrailId  Int
   hikingTrail    HikingTrail @relation(fields: [hikingTrailId], references: [id])
+  startLongitude Float?
+  startLatitude  Float?
+  endLongitude   Float?
+  endLatitude    Float?
+  hikingTrailAccommodation HikingTrailAccommodation[]
+}
+
+model Accommodation {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  description String?
+  capacity    Int
+  latitude    Float
+  longitude   Float
+  hikingTrailAccommodation HikingTrailAccommodation[]
+}
+
+model HikingTrailAccommodation {
+  id             Int         @id @default(autoincrement())
+  hikingTrailId  Int
+  accommodationId Int
+  hikingTrail    HikingTrail @relation(fields: [hikingTrailId], references: [id])
+  accommodation   Accommodation @relation(fields: [accommodationId], references: [id])
+  hikingTrailStageId Int
+  hikingTrailStage  HikingTrailStage @relation(fields: [hikingTrailStageId], references: [id])
 }
