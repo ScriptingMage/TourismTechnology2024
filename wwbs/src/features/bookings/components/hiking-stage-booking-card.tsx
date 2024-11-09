@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { DateRangePicker } from "@/components/ui/daterangepicker"
 import { HikingTrailStage } from "@/features/hiking-trails/database/types";
+import { addDays } from "date-fns";
 
 export interface HikingStageBookingCardProps {
     hikingTrailStage: HikingTrailStage;
@@ -19,7 +20,7 @@ export const HikingStageBookingCard = ({ stageDate, hikingTrailStage }: HikingSt
           <div className="grid gap-2 mt-2">
             <div className="flex gap-4 items-center">
               <div className="font-bold">Stay Name 1</div>
-              <div><DateRangePicker /></div>
+              <div><DateRangePicker defaultFrom={stageDate} defaultTo={addDays(stageDate, 1)} /></div>
               <div>3 Betten frei</div>
               <div>
                 <Button>auswählen</Button>
@@ -27,7 +28,7 @@ export const HikingStageBookingCard = ({ stageDate, hikingTrailStage }: HikingSt
             </div>
             <div className="flex gap-4 items-center">
               <div className="font-bold">Stay Name 2</div>
-              <div><DateRangePicker /></div>
+              <div><DateRangePicker defaultFrom={stageDate} defaultTo={addDays(stageDate, 1)} /></div>
               <div>0 Betten frei</div>
               <div>
                 <Button disabled>auswählen</Button>

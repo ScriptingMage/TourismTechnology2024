@@ -11,6 +11,7 @@
 - position
 - hiking_trail_id
 - title
+- description
 - distance
 
 ## accommodations
