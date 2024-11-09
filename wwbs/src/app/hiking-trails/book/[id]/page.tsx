@@ -5,7 +5,7 @@ import {Card} from "@/components/ui/card";
 
 export default async function Page({params}: { params: { id: number } }) {
     const hikingTrail = await fetchHikingTrail(params.id);
-    const showMap = false;
+    const showMap = true;
 
     return (
         <div className="w-full min-h-screen flex gap-8">
