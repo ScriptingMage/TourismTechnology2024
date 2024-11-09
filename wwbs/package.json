@@ -9,14 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "date-fns": "^3.6.0",
     "deck.gl": "^9.0.35",
     "lucide-react": "^0.456.0",
     "mapbox-gl": "^3.7.0",
     "next": "14.2.17",
     "react": "^18",
+    "react-day-picker": "^8.10.1",
     "react-dom": "^18",
     "react-map-gl": "^7.1.7",
     "tailwind-merge": "^2.5.4",
