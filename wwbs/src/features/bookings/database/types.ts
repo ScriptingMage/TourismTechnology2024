@@ -19,4 +19,5 @@ export interface BookingStage {
     finished: boolean;
     endLatitude: number | null;
     endLongitude: number | null;
+    accommodationTitle: string | null;
 }

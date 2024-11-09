@@ -45,11 +45,11 @@ export default function LocationAggregatorMap() {
     const [accomodations, setAccomodations] = useAtom(bookingStagesAtom)
 
     const activeMarkers = useMemo(() => {
-        const newMarkers = accomodations.filter(a => a.endLatitude == null || a.endLongitude).map(accomodation => {
+        const newMarkers = accomodations.filter(a => a.endLatitude !== null && a.endLongitude !== null).map(accomodation => {
             return {
                 longitude: accomodation.endLongitude!,
                 latitude: accomodation.endLatitude!,
-                name: accomodation.id.toString()
+                name: accomodation.accommodationTitle!
             }
         })
 
