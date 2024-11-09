@@ -3,8 +3,8 @@ import {fetchHikingTrail} from "@/features/hiking-trails/database/actions";
 import LocationAggregatorMap from "@/app/locationMap";
 import {Card} from "@/components/ui/card";
 
-export default async function Page({params}: { params: { id: number } }) {
-    const hikingTrail = await fetchHikingTrail(params.id);
+export default async function Page({params}: { params: { id: string } }) {
+    const hikingTrail = await fetchHikingTrail(parseInt(params.id));
 
     const showMap = false;
 
@@ -17,7 +17,7 @@ export default async function Page({params}: { params: { id: number } }) {
             </div>
             <div className="w-1/2 h-screen overflow-y-scroll py-10">
                 <h1 className="text-4xl font-bold mb-8">Book a Hiking Trail</h1>
-                <BookingManager hikingTrail={hikingTrail}/>
+                {hikingTrail && <BookingManager hikingTrail={hikingTrail}/>}
             </div>
         </div>
     );

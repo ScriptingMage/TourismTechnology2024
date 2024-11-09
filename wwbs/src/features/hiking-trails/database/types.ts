@@ -1,11 +1,9 @@
-import { HikingTrailList } from "../components/hiking-trail-list";
-
 export interface HikingTrail {
     id: number;
     name: string;
-    description: string;
+    description: string | null;
     length: number;
-    stages?: HikingTrailStage[];
+    HikingTrailStage?: HikingTrailStage[];
 }
 
 export interface HikingTrailStage {
@@ -13,6 +11,6 @@ export interface HikingTrailStage {
     hikingTrailId: number;
     position: number;
     title: string;
-    description: string;
+    description: string | null;
     distance: number;
 }
