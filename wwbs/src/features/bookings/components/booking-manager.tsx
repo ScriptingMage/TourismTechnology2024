@@ -6,23 +6,27 @@ import { Booking, BookingStage } from "../database/types";
 import { BookingDataFormCard } from "./booking-data-form-card";
 import { addDays, set } from "date-fns";
 import { Prisma } from "@prisma/client";
+import { Button } from "@/components/ui/button";
 
 interface BookingManagerProps {
   hikingTrail: Prisma.HikingTrailGetPayload<{
     include: {
-      hikingTrailStage: true,
-      hikingTrailAccommodation: true,
-    },
+      hikingTrailStage: true;
+      hikingTrailAccommodation: true;
+    };
   }>;
   accommodations: Prisma.HikingTrailAccommodationGetPayload<{
     include: {
-      accommodation: true,
-      hikingTrailStage: true,
-    },
+      accommodation: true;
+      hikingTrailStage: true;
+    };
   }>[];
 }
 
-export const BookingManager = ({ hikingTrail, accommodations }: BookingManagerProps) => {
+export const BookingManager = ({
+  hikingTrail,
+  accommodations,
+}: BookingManagerProps) => {
   const [booking, setBooking] = useState<Booking>({
     id: Math.floor(Math.random() * 1000),
     hikingTrailId: hikingTrail.id,
@@ -49,10 +53,11 @@ export const BookingManager = ({ hikingTrail, accommodations }: BookingManagerPr
   };
 
   const handleBookingSave = () => {
+    const hikingTrailsStageId = hikingTrail.hikingTrailStage?.find(
+      (stage) => stage.position == currentStage
+    )?.id;
 
-    const hikingTrailsStageId = hikingTrail.hikingTrailStage?.find((stage) => stage.position == currentStage)?.id
-
-    if(!hikingTrailsStageId) {
+    if (!hikingTrailsStageId) {
       console.log("No stage found");
       return;
     }
@@ -68,17 +73,50 @@ export const BookingManager = ({ hikingTrail, accommodations }: BookingManagerPr
         accommodationId: -1,
         hikingTrailStageId: hikingTrailsStageId,
         hikers: booking.hikers,
+        finished: false,
       },
     ]);
   };
 
-  const handleStageSave = (date: Date) => {
+  const handleStageSave = (
+    accommodationId: number,
+    fromDate: Date,
+    toDate: Date,
+    currentHikingTrailsStageId: number,
+    currentHikingTrailsStagePosition: number
+  ) => {
+    const newStages = bookingStages.filter(
+      (bookingStage) =>
+        bookingStage.hikingTrailStageId != currentHikingTrailsStageId
+    );
 
-    const newStagePosition = currentStage + 1;
-    const hikingTrailsStageId = hikingTrail.hikingTrailStage?.find((stage) => stage.position == newStagePosition)?.id
+    newStages.push({
+      id: Math.floor(Math.random() * 1000),
+      bookingId: booking.id,
+      startDate: fromDate,
+      endDate: toDate,
+      hikingTrailId: booking.hikingTrailId,
+      accommodationId: accommodationId,
+      hikingTrailStageId: currentHikingTrailsStageId,
+      hikers: booking.hikers,
+      finished: true,
+    });
 
-    if(!hikingTrailsStageId) {
-      console.log("No stage found");
+    newStages.sort((a, b) => a.startDate.valueOf() - b.startDate.valueOf());
+
+    setBookingStages(newStages);
+
+    const newStagePosition = currentHikingTrailsStagePosition + 1;
+    if (newStagePosition <= currentStage) {
+      return;
+    }
+    setCurrentStage(newStagePosition);
+    const hikingTrailsStageId = hikingTrail.hikingTrailStage?.find(
+      (stage) => stage.position == newStagePosition
+    )?.id;
+
+    if (!hikingTrailsStageId) {
+      console.log("No stage found or finished");
       return;
     }
 
@@ -87,19 +125,18 @@ export const BookingManager = ({ hikingTrail, accommodations }: BookingManagerPr
       {
         id: Math.floor(Math.random() * 1000),
         bookingId: booking.id,
-        startDate: date,
-        endDate: addDays(date, 1),
+        startDate: toDate,
+        endDate: addDays(toDate, 1),
         hikingTrailId: booking.hikingTrailId,
         accommodationId: -1,
         hikingTrailStageId: hikingTrailsStageId,
         hikers: booking.hikers,
+        finished: false,
       },
     ]);
-
-    setCurrentStage(newStagePosition);
   };
 
-  console.log(accommodations);
+  const handleFinishBooking = () => {};
 
   return (
     <div className="flex flex-col items-start gap-8">
@@ -109,55 +146,36 @@ export const BookingManager = ({ hikingTrail, accommodations }: BookingManagerPr
         onSave={handleBookingSave}
       />
       {bookingStages.map((bookingStage) => {
-        const hikingTrailsStage = hikingTrail.hikingTrailStage?.find((stage) => stage.id == bookingStage.hikingTrailStageId);
-        
-        if(hikingTrailsStage) {
-          const hikingStageAccommodation = accommodations.filter((accommodation) => accommodation.hikingTrailStageId == hikingTrailsStage.id);
+        const hikingTrailsStage = hikingTrail.hikingTrailStage?.find(
+          (stage) => stage.id == bookingStage.hikingTrailStageId
+        );
+
+        if (hikingTrailsStage) {
+          const hikingStageAccommodation = accommodations.filter(
+            (accommodation) =>
+              accommodation.hikingTrailStageId == hikingTrailsStage.id
+          );
           return (
             <HikingStageBookingCard
-              key={bookingStage.id}
+              key={hikingTrailsStage.id}
               hikingTrailStage={hikingTrailsStage}
               accommodations={hikingStageAccommodation}
-              stageDate={bookingStage.startDate}
+              bookingStage={bookingStage}
               onAccomodationSelect={handleStageSave}
             />
           );
         }
       })}
 
-      {/* <div className="border border-gray-500 p-4 w-auto">
-          <h2 className="text-2xl font-bold">No availability</h2>
-          <p>Unfortunately there is no availability for this hiking trail.</p>
+      {currentStage > hikingTrail.hikingTrailStage.length && (
+        <div className="border border-gray-500 p-4 w-full">
+          <h2 className="text-2xl font-bold mb-2">Hiking trail is finished</h2>
+          <p className="mb-4">
+            You have successfully completed booking your hike.
+          </p>
+          <Button onClick={handleFinishBooking}>Complete Booking</Button>
         </div>
-
-        <HikingStageBookingCard
-            hikingTrailStage={{
-                id: 1,
-                hikingTrailId: 1,
-                position: 1,
-                title: "Start",
-                description: "Short description of the stage",
-                distance: 12.5,
-            }}
-            stageDate={new Date()}
-        />
-
-        
-        <div className="border border-gray-500 p-4 w-auto">
-          <div className="text-sm opacity-50">Date Stage 4</div>
-          <h2 className="text-2xl font-bold">4. Stage: Start - End</h2>
-          <p>Short description of the stage</p>
-          <h3 className="text-xl font-bold border-t border-gray-200 mt-4 pt-4">
-            Overnight Stays:
-          </h3>
-          <div className="grid gap-4 mt-4">
-            <div>
-              <p>No Overnight stay available.</p>
-              <p>You can skip this stage for now.</p>
-              <Button className="mt-4">Skip</Button>
-            </div>
-          </div>
-        </div> */}
+      )}
     </div>
   );
 };
