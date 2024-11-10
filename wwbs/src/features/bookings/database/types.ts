@@ -5,6 +5,7 @@ export interface Booking {
     hikers: number;
     name: string;
     bookingStages?: BookingStage[];
+    finished: boolean;
 }
 
 export interface BookingStage {

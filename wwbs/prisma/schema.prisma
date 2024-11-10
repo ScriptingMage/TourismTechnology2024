@@ -14,45 +14,74 @@ datasource db {
 }
 
 model HikingTrail {
-  id               Int                @id @default(autoincrement())
-  name             String             @db.VarChar(255)
-  description      String?
-  length           Int
-  hikingTrailStage HikingTrailStage[]
+  id                       Int                        @id @default(autoincrement())
+  name                     String                     @db.VarChar(255)
+  description              String?
+  length                   Int
+  hikingTrailStage         HikingTrailStage[]
   hikingTrailAccommodation HikingTrailAccommodation[]
+  booking                  Booking[]
 }
 
 model HikingTrailStage {
-  id             Int         @id @default(autoincrement())
-  title          String      @db.VarChar(255)
-  description    String?
-  position       Int
-  distance       Int
-  hikingTrailId  Int
-  hikingTrail    HikingTrail @relation(fields: [hikingTrailId], references: [id])
-  startLongitude Float?
-  startLatitude  Float?
-  endLongitude   Float?
-  endLatitude    Float?
+  id                       Int                        @id @default(autoincrement())
+  title                    String                     @db.VarChar(255)
+  description              String?
+  position                 Int
+  distance                 Int
+  hikingTrailId            Int
+  hikingTrail              HikingTrail                @relation(fields: [hikingTrailId], references: [id])
+  startLongitude           Float?
+  startLatitude            Float?
+  endLongitude             Float?
+  endLatitude              Float?
   hikingTrailAccommodation HikingTrailAccommodation[]
+  bookingStages            BookingStage[]
 }
 
 model Accommodation {
-  id          Int     @id @default(autoincrement())
-  name        String  @db.VarChar(255)
-  description String?
-  capacity    Int
-  latitude    Float
-  longitude   Float
+  id                       Int                        @id @default(autoincrement())
+  name                     String                     @db.VarChar(255)
+  description              String?
+  capacity                 Int
+  latitude                 Float
+  longitude                Float
   hikingTrailAccommodation HikingTrailAccommodation[]
+  bookingStages            BookingStage[]
 }
 
 model HikingTrailAccommodation {
-  id             Int         @id @default(autoincrement())
-  hikingTrailId  Int
-  accommodationId Int
-  hikingTrail    HikingTrail @relation(fields: [hikingTrailId], references: [id])
-  accommodation   Accommodation @relation(fields: [accommodationId], references: [id])
+  id                 Int              @id @default(autoincrement())
+  hikingTrailId      Int
+  accommodationId    Int
+  hikingTrail        HikingTrail      @relation(fields: [hikingTrailId], references: [id])
+  accommodation      Accommodation    @relation(fields: [accommodationId], references: [id])
   hikingTrailStageId Int
-  hikingTrailStage  HikingTrailStage @relation(fields: [hikingTrailStageId], references: [id])
+  hikingTrailStage   HikingTrailStage @relation(fields: [hikingTrailStageId], references: [id])
+}
+
+model Booking {
+  id            Int            @id @default(autoincrement())
+  hikingTrailId Int
+  hikingTrail   HikingTrail    @relation(fields: [hikingTrailId], references: [id])
+  startDate     DateTime
+  hikers        Int
+  bookingStages BookingStage[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model BookingStage {
+  id                 Int              @id @default(autoincrement())
+  bookingId          Int
+  booking            Booking          @relation(fields: [bookingId], references: [id])
+  startDate          DateTime
+  endDate            DateTime
+  accommodationId    Int
+  accommodation      Accommodation    @relation(fields: [accommodationId], references: [id])
+  hikingTrailStageId Int
+  hikingTrailStage   HikingTrailStage @relation(fields: [hikingTrailStageId], references: [id])
+  hikers             Int
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
 }
