@@ -25,6 +25,7 @@ export const BookingDataFormCard = ({ onBookingDateChange, onHikerChange, onSave
   };
 
   const handleSave = () => {
+    setHikers(hikers);
     onSave();
   }
 

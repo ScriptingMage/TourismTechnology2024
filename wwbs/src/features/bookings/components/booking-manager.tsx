@@ -34,7 +34,7 @@ export const BookingManager = ({
     id: Math.floor(Math.random() * 1000),
     hikingTrailId: hikingTrail.id,
     startDate: new Date(),
-    hikers: 0,
+    hikers: 1,
     name: hikingTrail.name,
     finished: false,
   });

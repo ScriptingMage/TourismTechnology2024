@@ -13,9 +13,7 @@ export const BookingSummary = ({
   booking,
   bookingStages,
 }: BookingSummaryProps) => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    ("use server");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     createBooking(booking, bookingStages);
   };
   return (

@@ -1,3 +1,4 @@
+"use server";
 import { prisma } from "@/database/db";
 import { Booking, BookingStage } from "./types";
 
