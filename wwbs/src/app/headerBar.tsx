@@ -8,6 +8,7 @@ export function HeaderBar() {
   const title = {
     "/": "Dashboard",
     "/hiking-trails": "Book your route!",
+    "/hiking-trails/thanks": "Thanks for booking!",
     "/admin": "Your upcoming visits",
     "/technicals": "Technicals",
   }[url];

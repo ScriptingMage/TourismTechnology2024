@@ -1,8 +1,10 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import { Booking, BookingStage } from "../database/types";
 import { formatDuration } from "date-fns";
 import { create } from "domain";
 import { createBooking } from "../database/actions";
+import {useRouter} from "next/navigation";
 
 interface BookingSummaryProps {
   booking: Booking;
@@ -13,8 +15,12 @@ export const BookingSummary = ({
   booking,
   bookingStages,
 }: BookingSummaryProps) => {
+
+    const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    createBooking(booking, bookingStages);
+      e.preventDefault();
+      await createBooking(booking, bookingStages);
+      router.push("/hiking-trails/thanks");
   };
   return (
     <div className="border border-gray-500 p-4 w-full">
