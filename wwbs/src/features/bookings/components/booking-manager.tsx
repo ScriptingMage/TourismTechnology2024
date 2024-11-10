@@ -11,7 +11,7 @@ import { useAtom } from "jotai/index";
 import { BookingSummary } from "./booking-summary";
 import { bookingStagesAtom } from "@/lib/atoms";
 import { getAccommodationCapacity } from "../database/actions";
-import {Card} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
 interface BookingManagerProps {
   hikingTrail: Prisma.HikingTrailGetPayload<{
@@ -46,7 +46,9 @@ export const BookingManager = ({
   // const [bookingStages, setBookingStages] = useState<BookingStage[]>([]);
   const [currentStage, setCurrentStage] = useState<number>(1);
 
-  const [accommodationCapacity, setAccommodationCapacity] = useState<{id: number, capacity: number}[]>([]);
+  const [accommodationCapacity, setAccommodationCapacity] = useState<
+    { id: number; capacity: number }[]
+  >([]);
 
   const handleBookingDateChange = (date: Date) => {
     setBooking((prevBooking) => ({
@@ -180,10 +182,9 @@ export const BookingManager = ({
         accommodation.hikingTrailStageId == hikingTrailsStage.id
     );
 
-    if(hikingStageAccommodation.length) {
+    if (hikingStageAccommodation.length) {
       getCapacity(hikingStageAccommodation[0].accommodationId, toDate);
     }
-    
 
     setBookingStages((prevBookingStages) => [
       ...prevBookingStages,
