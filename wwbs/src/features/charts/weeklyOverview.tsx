@@ -26,7 +26,7 @@ const chartData = [
     {month: "Thursday", total: 25, booked: 4, notBooked: 21},
     {month: "Friday", total: 15, booked: 9, notBooked: 6},
     {month: "Saturday", total: 26, booked: 12, notBooked: 14},
-    {month: "Sunday", total: 27, booked: 11, notBooked: 16},
+    {month: "Sunday", total: 30, booked: 18, notBooked: 12},
 ];
 
 const chartConfig = {
