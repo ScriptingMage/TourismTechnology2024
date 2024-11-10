@@ -10,6 +10,7 @@ import {atom} from "jotai";
 import {fetchAccommodationsForHikingTrail} from "@/features/accommodations/database/actions";
 import {useAtom} from "jotai";
 import {BookingStage} from "@/features/bookings/database/types";
+import {bookingStagesAtom} from "@/lib/atoms";
 
 const markerColors = "red";
 
@@ -37,7 +38,6 @@ function getMapBounds(markers: { latitude: number; longitude: number; name: stri
     ];
 }
 
-export const bookingStagesAtom = atom<BookingStage[]>([])
 
 export default function LocationAggregatorMap() {
 
@@ -61,23 +61,6 @@ export default function LocationAggregatorMap() {
         return newMarkers;
     }, [accomodations]);
 
-    // const [activeMarkers, setActiveMarkers] = useState([{longitude: 11.391, latitude: 47.2675, name: "Location"}]);
-    //
-    // function addRandomMarker() {
-    //     const lastMarker = activeMarkers[activeMarkers.length - 1];
-    //     // Random marker close to the last marker
-    //     const newMarker = {longitude: lastMarker.longitude + 0.1, latitude: lastMarker.latitude + 0.1, name: "Location"};
-    //     const newMarkers = [...activeMarkers, newMarker];
-    //
-    //     setActiveMarkers(newMarkers);
-    //     if (mapRef.current) {
-    //         const map = mapRef.current.getMap();
-    //         const mapBounds = getMapBounds(newMarkers);
-    //         map.fitBounds(mapBounds);
-    //     }
-    // }
-
-
     const lineData = {
         type: "FeatureCollection",
         features: [
@@ -94,26 +77,35 @@ export default function LocationAggregatorMap() {
         ],
     };
 
-    const Markers = activeMarkers.map((marker) => (
-        <>
-            <Marker
-                color={markerColors}
-                key={`${marker.longitude}_${marker.latitude}`}
-                longitude={marker.longitude}
-                latitude={marker.latitude}
-            ></Marker>
-            <Marker
-                offset={[0, -50]}
-                key={`${marker.longitude}_${marker.latitude}text`}
-                longitude={marker.longitude}
-                latitude={marker.latitude}
-            >
-                <div className="text-xl text-white drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">
-                    {marker.name}
-                </div>
-            </Marker>
-        </>
-    ));
+    const Markers = activeMarkers.map((marker, index) => {
+        console.log(marker)
+        console.log(index)
+        console.log(activeMarkers.length)
+        const shouldBeGreen = index === activeMarkers.length - 1;
+        console.log(shouldBeGreen)
+        const color = shouldBeGreen ? "green" : "red";
+        console.log(color)
+        return (
+            <>
+                <Marker
+                    color={color}
+                    key={`${marker.longitude}_${marker.latitude}_${color}`}
+                    longitude={marker.longitude}
+                    latitude={marker.latitude}
+                ></Marker>
+                <Marker
+                    offset={[0, -50]}
+                    key={`${marker.longitude}_${marker.latitude}text`}
+                    longitude={marker.longitude}
+                    latitude={marker.latitude}
+                >
+                    <div className="text-xl text-white drop-shadow-[0_1px_1px_rgba(0,0,0,1)]">
+                        {marker.name}
+                    </div>
+                </Marker>
+            </>
+        );
+    });
 
     return (
         <div className="h-full flex flex-col">

@@ -9,7 +9,6 @@ import { Prisma } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { useAtom } from "jotai/index";
 import { bookingStagesAtom } from "@/app/locationMap";
-import { Book } from "lucide-react";
 import { BookingSummary } from "./booking-summary";
 
 interface BookingManagerProps {
