@@ -7,6 +7,11 @@ interface HikingTrailsCardProps {
   hikingTrail: HikingTrail;
 }
 
+const Thumbnails = [
+  "https://www.tirol.at/images/91rrjee59ns-/adlerweg.jpg",
+  "https://www.tirol.at/images/uwwx1tqjt_s-/vorbei-an-der-salmhuette-auf-etappe-4.webp",
+];
+
 export const HikingTrailCard = ({ hikingTrail }: HikingTrailsCardProps) => {
   return (
     <div className="border border-gray-500 p-4">
@@ -14,7 +19,7 @@ export const HikingTrailCard = ({ hikingTrail }: HikingTrailsCardProps) => {
         <div className="w-[400px] flex-shrink-0 relative">
           <div className="aspect-w-16 aspect-h-9 bg-gray-300">
             <Image
-              src="https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+              src={Thumbnails[hikingTrail.id % 2]}
               alt=""
               className="w-full h-full object-cover"
               fill={true}
