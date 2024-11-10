@@ -20,7 +20,8 @@ export const createBooking = async (
     });
 
     const newBookingStages = await prisma.bookingStage.createMany({
-      data: bookingStages.map((bookingStage) => {
+      data: bookingStages.map(function (bookingStage) {
+        console.log({bookingStage});
         return {
           bookingId: newBooking.id,
           startDate: bookingStage.startDate,
