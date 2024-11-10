@@ -8,6 +8,7 @@ import { addDays } from "date-fns";
 import { useState } from "react";
 import { BookingStage } from "../database/types";
 import { cn } from "@/lib/utils";
+import {Card} from "@/components/ui/card";
 
 export interface HikingStageBookingCardProps {
   hikingTrailStage: HikingTrailStage;
@@ -56,7 +57,7 @@ export const HikingStageBookingCard = ({
   };
 
   return (
-    <div
+    <Card
       className={cn(
         "border border-gray-500 p-4 w-full",
         bookingStage.finished && "border-green-500 bg-green-500/20"
@@ -123,6 +124,6 @@ export const HikingStageBookingCard = ({
           </div>
         )}
       </div>
-    </div>
+    </Card>
   );
 };

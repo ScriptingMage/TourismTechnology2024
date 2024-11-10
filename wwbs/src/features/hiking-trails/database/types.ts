@@ -4,6 +4,7 @@ export interface HikingTrail {
     description: string | null;
     length: number;
     HikingTrailStage?: HikingTrailStage[];
+    trailPathJson: string | null; // In the format of a GeoJSON LineStrings coordinates array
 }
 
 export interface HikingTrailStage {

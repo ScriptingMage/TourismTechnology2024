@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   const showMap = true;
 
   return (
-    <div className="w-full min-h-screen flex gap-8">
+    <div className="w-full min-h-screen flex gap-4">
       <div className="w-1/2 h-screen p-10">
         <Card className="h-full overflow-hidden [&>*]:!relative">
           {showMap ? (

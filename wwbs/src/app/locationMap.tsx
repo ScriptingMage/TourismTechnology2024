@@ -1,13 +1,14 @@
 "use client";
 // components/Map.jsx
-import React, {useEffect, useMemo, useRef, useState} from "react";
-import {Map, Marker, Source, Layer, MapRef} from "react-map-gl";
+import React, {useMemo, useRef} from "react";
+import {Layer, Map, MapRef, Marker, Source} from "react-map-gl";
 
 import "mapbox-gl/dist/mapbox-gl.css";
-import  {LngLatBoundsLike} from "mapbox-gl";
+import {LngLatBoundsLike} from "mapbox-gl";
 import {INITIAL_VIEW_STATE} from "../lib/mapconfig.js";
 import {useAtom} from "jotai";
 import {bookingStagesAtom} from "@/lib/atoms";
+import {trackPoints} from "@/features/hiking-trails/trackPoints";
 
 const markerColors = "red";
 
@@ -24,17 +25,16 @@ function getMapBounds(markers: { latitude: number; longitude: number; name: stri
     });
 
     // Add a bit of padding
-    minLat -= 0.1;
-    maxLat += 0.1;
-    minLng -= 0.1;
-    maxLng += 0.1;
+    minLat -= 0.05;
+    maxLat += 0.05;
+    minLng -= 0.05;
+    maxLng += 0.05;
 
     return [
         [minLng, minLat],
         [maxLng, maxLat],
     ];
 }
-
 
 export default function LocationAggregatorMap() {
 
@@ -65,10 +65,7 @@ export default function LocationAggregatorMap() {
                 type: "Feature",
                 geometry: {
                     type: "LineString",
-                    coordinates: activeMarkers.map((location) => [
-                        location.longitude,
-                        location.latitude,
-                    ]),
+                    coordinates: trackPoints,
                 },
             },
         ],
@@ -76,7 +73,7 @@ export default function LocationAggregatorMap() {
 
     const Markers = activeMarkers.map((marker, index) => {
         const shouldBeGreen = index === activeMarkers.length - 1;
-        const color = shouldBeGreen ? "green" : "red";
+        const color = shouldBeGreen ? "#4CAF50" : "red";
         return (
             <>
                 <Marker
@@ -108,7 +105,7 @@ export default function LocationAggregatorMap() {
                     mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
                     mapStyle="mapbox://styles/mapbox/outdoors-v12"
                 >
-                    {Markers}
+                    {...Markers}
                     <Source id="line-source" type="geojson" data={lineData}>
                         <Layer
                             id="line-layer"

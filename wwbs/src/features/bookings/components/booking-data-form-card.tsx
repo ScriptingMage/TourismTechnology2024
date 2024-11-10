@@ -5,6 +5,7 @@ import { DatePicker } from "@/components/ui/datepicker";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import {Card} from "@/components/ui/card";
 
 interface BookingDataFormCardProps {
   onBookingDateChange: (date: Date) => void;
@@ -30,7 +31,7 @@ export const BookingDataFormCard = ({ onBookingDateChange, onHikerChange, onSave
   }
 
   return (
-    <div className="border border-gray-500 p-4 w-full">
+    <Card className="border border-gray-500 p-4 w-full">
       <h2 className="text-2xl font-bold mb-4">Start</h2>
       <div className="flex flex-col gap-4">
         <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -43,6 +44,6 @@ export const BookingDataFormCard = ({ onBookingDateChange, onHikerChange, onSave
         </div>
         <Button onClick={handleSave}>Save</Button>
       </div>
-    </div>
+    </Card>
   );
 };

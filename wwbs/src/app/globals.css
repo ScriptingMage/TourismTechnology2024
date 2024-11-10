@@ -64,3 +64,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+.mapboxgl-canvas {
+  filter: brightness(0.85);
+}

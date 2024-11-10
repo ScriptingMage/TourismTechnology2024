@@ -11,6 +11,7 @@ import { useAtom } from "jotai/index";
 import { BookingSummary } from "./booking-summary";
 import { bookingStagesAtom } from "@/lib/atoms";
 import { getAccommodationCapacity } from "../database/actions";
+import {Card} from "@/components/ui/card";
 
 interface BookingManagerProps {
   hikingTrail: Prisma.HikingTrailGetPayload<{
@@ -247,7 +248,7 @@ export const BookingManager = ({
           })}
 
           {currentStage > hikingTrail.hikingTrailStage.length && (
-            <div className="border border-gray-500 p-4 w-full">
+            <Card className="border border-gray-500 p-4 w-full">
               <h2 className="text-2xl font-bold mb-2">
                 Hiking trail is finished
               </h2>
@@ -255,7 +256,7 @@ export const BookingManager = ({
                 You have successfully completed planning your hike.
               </p>
               <Button onClick={handleFinishBooking}>Continue to book</Button>
-            </div>
+            </Card>
           )}
         </>
       )}
