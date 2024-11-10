@@ -11,6 +11,8 @@ export default async function Page({ params }: { params: { id: string } }) {
   const accommodations = await fetchAccommodationsForHikingTrail(
     hikingTrail.id
   );
+
+  // For testing without using tokens
   const showMap = true;
 
   return (
