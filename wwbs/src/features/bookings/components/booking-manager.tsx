@@ -58,6 +58,18 @@ export const BookingManager = ({
     }));
   };
 
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      document.querySelector("#scrollanchorbottom")?.scrollIntoView();
+    }, 100);
+  };
+
+  const scrollToTop = () => {
+    setTimeout(() => {
+      document.querySelector("#scrollanchortop")?.scrollIntoView();
+    }, 100);
+  };
+
   const handleBookingSave = () => {
     const hikingTrailsStage = hikingTrail.hikingTrailStage?.find(
       (stage) => stage.position == currentStage
@@ -137,6 +149,7 @@ export const BookingManager = ({
 
     if (!hikingTrailsStageId) {
       console.log("No stage found or finished");
+      scrollToBottom();
       return;
     }
 
@@ -157,6 +170,8 @@ export const BookingManager = ({
         accommodationTitle: hikingTrailsStage.title,
       },
     ]);
+
+    scrollToBottom();
   };
 
   const handleFinishBooking = () => {
@@ -164,10 +179,12 @@ export const BookingManager = ({
       ...prevBooking,
       finished: true,
     }));
+    scrollToTop();
   };
 
   return (
     <div className="flex flex-col items-start gap-8">
+      <div id="scrollanchortop"></div>
       {!booking.finished && <>
         <BookingDataFormCard
           onHikerChange={handleHikerChange}
@@ -209,6 +226,7 @@ export const BookingManager = ({
         )}
       </>}
       {booking.finished && <BookingSummary booking={booking} bookingStages={bookingStages} />}
+      <div id="scrollanchorbottom"></div>
     </div>
   );
 };

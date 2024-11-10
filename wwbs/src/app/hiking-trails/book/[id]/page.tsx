@@ -24,7 +24,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           )}
         </Card>
       </div>
-      <div className="w-1/2 h-screen overflow-y-scroll py-10 pr-10">
+      <div className="w-1/2 h-screen overflow-y-scroll py-10 pr-10 scroll-smooth">
         <h1 className="text-4xl font-bold mb-8">Plan your hiking trail</h1>
         {hikingTrail && <BookingManager hikingTrail={hikingTrail} accommodations={accommodations} />}
       </div>
