@@ -77,8 +77,8 @@ model BookingStage {
   booking            Booking          @relation(fields: [bookingId], references: [id])
   startDate          DateTime
   endDate            DateTime
-  accommodationId    Int
-  accommodation      Accommodation    @relation(fields: [accommodationId], references: [id])
+  accommodationId    Int?
+  accommodation      Accommodation?    @relation(fields: [accommodationId], references: [id])
   hikingTrailStageId Int
   hikingTrailStage   HikingTrailStage @relation(fields: [hikingTrailStageId], references: [id])
   hikers             Int

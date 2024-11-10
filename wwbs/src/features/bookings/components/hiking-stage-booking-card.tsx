@@ -25,12 +25,14 @@ export interface HikingStageBookingCardProps {
     hikingTrailStageId: number,
     hikingTrailStagePosition: number
   ) => void;
+  accommodationCapacity: {id: number, capacity: number}[];
 }
 
 export const HikingStageBookingCard = ({
   bookingStage,
   hikingTrailStage,
   accommodations,
+  accommodationCapacity,
   onAccomodationSelect,
 }: HikingStageBookingCardProps) => {
   const [fromDate, setFromDate] = useState<Date>(bookingStage.startDate);
@@ -68,6 +70,8 @@ export const HikingStageBookingCard = ({
       </h3>
       <div className="grid gap-2 mt-2">
         {accommodations.map((accommodation) => {
+          const realCapacity = accommodationCapacity.find(a => a.id == accommodation.id)?.capacity;
+
           return (
             <div className="flex gap-4 items-center">
               <div className="font-bold">
@@ -81,7 +85,7 @@ export const HikingStageBookingCard = ({
                   onDateChange={handleDateChange}
                 />
               </div>
-              <div>{accommodation.accommodation.capacity} capacity</div>
+              <div>{`${realCapacity}/${accommodation.accommodation.capacity}`} capacity</div>
               {!bookingStage.finished && (
                 <div>
                   <Button
