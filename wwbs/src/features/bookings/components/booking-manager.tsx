@@ -180,7 +180,7 @@ export const BookingManager = ({
     );
 
     if(hikingStageAccommodation.length) {
-      getCapacity(hikingStageAccommodation[0].id, toDate);
+      getCapacity(hikingStageAccommodation[0].accommodationId, toDate);
     }
     
 

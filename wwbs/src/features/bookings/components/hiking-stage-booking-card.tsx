@@ -70,7 +70,7 @@ export const HikingStageBookingCard = ({
       </h3>
       <div className="grid gap-2 mt-2">
         {accommodations.map((accommodation) => {
-          const realCapacity = accommodationCapacity.find(a => a.id == accommodation.id)?.capacity;
+          const realCapacity = accommodationCapacity.find(a => a.id == accommodation.accommodationId)?.capacity;
 
           return (
             <div className="flex gap-4 items-center">
@@ -89,7 +89,7 @@ export const HikingStageBookingCard = ({
               {!bookingStage.finished && (
                 <div>
                   <Button
-                    onClick={() => handleAccomodationSelect(accommodation.id)}
+                    onClick={() => handleAccomodationSelect(accommodation.accommodationId)}
                   >
                     Select
                   </Button>
