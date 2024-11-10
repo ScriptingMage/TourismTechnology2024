@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useAtom } from "jotai/index";
 import { BookingSummary } from "./booking-summary";
 import { bookingStagesAtom } from "@/lib/atoms";
+import { getAccommodationCapacity } from "../database/actions";
 
 interface BookingManagerProps {
   hikingTrail: Prisma.HikingTrailGetPayload<{
@@ -44,6 +45,8 @@ export const BookingManager = ({
   // const [bookingStages, setBookingStages] = useState<BookingStage[]>([]);
   const [currentStage, setCurrentStage] = useState<number>(1);
 
+  const [accommodationCapacity, setAccommodationCapacity] = useState<{id: number, capacity: number}[]>([]);
+
   const handleBookingDateChange = (date: Date) => {
     setBooking((prevBooking) => ({
       ...prevBooking,
@@ -70,6 +73,17 @@ export const BookingManager = ({
     }, 100);
   };
 
+  const getCapacity = async (accommodationId: number, date: Date) => {
+    const capacity = await getAccommodationCapacity(accommodationId, date);
+    setAccommodationCapacity((prevAccommodationCapacity) => [
+      ...prevAccommodationCapacity,
+      {
+        id: accommodationId,
+        capacity: capacity,
+      },
+    ]);
+  };
+
   const handleBookingSave = () => {
     const hikingTrailsStage = hikingTrail.hikingTrailStage?.find(
       (stage) => stage.position == currentStage
@@ -81,6 +95,13 @@ export const BookingManager = ({
       console.log("No stage found");
       return;
     }
+
+    const hikingStageAccommodation = accommodations.filter(
+      (accommodation) =>
+        accommodation.hikingTrailStageId == hikingTrailsStage.id
+    );
+
+    getCapacity(hikingStageAccommodation[0].id, booking.startDate);
 
     setBookingStages((prevBookingStages) => [
       ...prevBookingStages,
@@ -153,6 +174,16 @@ export const BookingManager = ({
       return;
     }
 
+    const hikingStageAccommodation = accommodations.filter(
+      (accommodation) =>
+        accommodation.hikingTrailStageId == hikingTrailsStage.id
+    );
+
+    if(hikingStageAccommodation.length) {
+      getCapacity(hikingStageAccommodation[0].id, toDate);
+    }
+    
+
     setBookingStages((prevBookingStages) => [
       ...prevBookingStages,
       {
@@ -185,47 +216,52 @@ export const BookingManager = ({
   return (
     <div className="flex flex-col items-start gap-8">
       <div id="scrollanchortop"></div>
-      {!booking.finished && <>
-        <BookingDataFormCard
-          onHikerChange={handleHikerChange}
-          onBookingDateChange={handleBookingDateChange}
-          onSave={handleBookingSave}
-        />
-        {bookingStages.map((bookingStage) => {
-          const hikingTrailsStage = hikingTrail.hikingTrailStage?.find(
-            (stage) => stage.id == bookingStage.hikingTrailStageId
-          );
-
-          if (hikingTrailsStage) {
-            const hikingStageAccommodation = accommodations.filter(
-              (accommodation) =>
-                accommodation.hikingTrailStageId == hikingTrailsStage.id
+      {!booking.finished && (
+        <>
+          <BookingDataFormCard
+            onHikerChange={handleHikerChange}
+            onBookingDateChange={handleBookingDateChange}
+            onSave={handleBookingSave}
+          />
+          {bookingStages.map((bookingStage) => {
+            const hikingTrailsStage = hikingTrail.hikingTrailStage?.find(
+              (stage) => stage.id == bookingStage.hikingTrailStageId
             );
-            return (
-              <HikingStageBookingCard
-                key={hikingTrailsStage.id}
-                hikingTrailStage={hikingTrailsStage}
-                accommodations={hikingStageAccommodation}
-                bookingStage={bookingStage}
-                onAccomodationSelect={handleStageSave}
-              />
-            );
-          }
-        })}
 
-        {currentStage > hikingTrail.hikingTrailStage.length && (
-          <div className="border border-gray-500 p-4 w-full">
-            <h2 className="text-2xl font-bold mb-2">
-              Hiking trail is finished
-            </h2>
-            <p className="mb-4">
-              You have successfully completed planning your hike.
-            </p>
-            <Button onClick={handleFinishBooking}>Continue to book</Button>
-          </div>
-        )}
-      </>}
-      {booking.finished && <BookingSummary booking={booking} bookingStages={bookingStages} />}
+            if (hikingTrailsStage) {
+              const hikingStageAccommodation = accommodations.filter(
+                (accommodation) =>
+                  accommodation.hikingTrailStageId == hikingTrailsStage.id
+              );
+              return (
+                <HikingStageBookingCard
+                  key={hikingTrailsStage.id}
+                  hikingTrailStage={hikingTrailsStage}
+                  accommodations={hikingStageAccommodation}
+                  accommodationCapacity={accommodationCapacity}
+                  bookingStage={bookingStage}
+                  onAccomodationSelect={handleStageSave}
+                />
+              );
+            }
+          })}
+
+          {currentStage > hikingTrail.hikingTrailStage.length && (
+            <div className="border border-gray-500 p-4 w-full">
+              <h2 className="text-2xl font-bold mb-2">
+                Hiking trail is finished
+              </h2>
+              <p className="mb-4">
+                You have successfully completed planning your hike.
+              </p>
+              <Button onClick={handleFinishBooking}>Continue to book</Button>
+            </div>
+          )}
+        </>
+      )}
+      {booking.finished && (
+        <BookingSummary booking={booking} bookingStages={bookingStages} />
+      )}
       <div id="scrollanchorbottom"></div>
     </div>
   );
