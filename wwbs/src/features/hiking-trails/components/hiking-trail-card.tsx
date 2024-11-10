@@ -26,7 +26,12 @@ export const HikingTrailCard = ({ hikingTrail }: HikingTrailsCardProps) => {
           <h2 className="text-2xl font-bold">{hikingTrail.name}</h2>
           <p className="text-base">{hikingTrail.description}</p>
           <div className="mt-auto flex justify-end gap-4">
-            <Link href={`/hiking-trails/book/${hikingTrail.id}`}><Button>Book</Button></Link>
+            <Link
+              href={`/hiking-trails/book/${hikingTrail.id}`}
+              prefetch={true}
+            >
+              <Button>Book</Button>
+            </Link>
             <Button>More Info</Button>
           </div>
         </div>
