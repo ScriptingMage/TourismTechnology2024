@@ -1,7 +1,10 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/datepicker";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
 
 interface BookingDataFormCardProps {
   onBookingDateChange: (date: Date) => void;
@@ -10,12 +13,14 @@ interface BookingDataFormCardProps {
 }
 
 export const BookingDataFormCard = ({ onBookingDateChange, onHikerChange, onSave }: BookingDataFormCardProps) => {
+  const [hikers, setHikers] = useState<number>(1);
 
   const handleBookingDateChange = (date: Date) => {
     onBookingDateChange(date);
   };
 
   const handleHikerChange = (hikers: number) => {
+    setHikers(hikers);
     onHikerChange(hikers);
   };
 
@@ -33,7 +38,7 @@ export const BookingDataFormCard = ({ onBookingDateChange, onHikerChange, onSave
         </div>
         <div className="grid w-full max-w-sm items-center gap-1.5">
           <Label htmlFor="hikers">Hikers:</Label>
-          <Input type="number" id="hikers" placeholder="Hikers" onChange={(e) => handleHikerChange(parseInt(e.target.value))} />
+          <Input value={hikers} required min={1} max={6} type="number" id="hikers" placeholder="Hikers" onChange={(e) => handleHikerChange(parseInt(e.target.value))} />
         </div>
         <Button onClick={handleSave}>Save</Button>
       </div>
