@@ -8,7 +8,7 @@ import {addDays, set} from "date-fns";
 import {Prisma} from "@prisma/client";
 import {Button} from "@/components/ui/button";
 import {useAtom} from "jotai/index";
-import {bookingStagesAtom} from "@/app/locationMap";
+import {bookingStagesAtom} from "@/lib/atoms";
 
 interface BookingManagerProps {
     hikingTrail: Prisma.HikingTrailGetPayload<{
