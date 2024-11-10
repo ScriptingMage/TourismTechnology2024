@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import {
     ChartConfig,
-    ChartContainer,
+    ChartContainer, ChartLegend, ChartLegendContent,
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart";
@@ -101,7 +101,9 @@ export default function WeeklyOverview() {
                                 fontSize={12}
                             />
                         </Bar>
+                    <ChartLegend content={<ChartLegendContent />} />
                     </BarChart>
+
                 </ChartContainer>
             </CardContent>
         </Card>
