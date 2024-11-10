@@ -10,6 +10,8 @@ interface HikingTrailsCardProps {
 const Thumbnails = [
   "https://www.tirol.at/images/91rrjee59ns-/adlerweg.jpg",
   "https://www.tirol.at/images/uwwx1tqjt_s-/vorbei-an-der-salmhuette-auf-etappe-4.webp",
+  "https://www.tirol.at/images/lcuu!wmd798-/kals-matreier-toerl-haus-im-virgental.webp",
+  "https://www.tirol.at/images/eiczj3avovi-/kalser-tauernhaus-nationalpark-hohe-tauern.webp",
 ];
 
 export const HikingTrailCard = ({ hikingTrail }: HikingTrailsCardProps) => {
