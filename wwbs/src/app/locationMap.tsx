@@ -61,23 +61,6 @@ export default function LocationAggregatorMap() {
         return newMarkers;
     }, [accomodations]);
 
-    // const [activeMarkers, setActiveMarkers] = useState([{longitude: 11.391, latitude: 47.2675, name: "Location"}]);
-    //
-    // function addRandomMarker() {
-    //     const lastMarker = activeMarkers[activeMarkers.length - 1];
-    //     // Random marker close to the last marker
-    //     const newMarker = {longitude: lastMarker.longitude + 0.1, latitude: lastMarker.latitude + 0.1, name: "Location"};
-    //     const newMarkers = [...activeMarkers, newMarker];
-    //
-    //     setActiveMarkers(newMarkers);
-    //     if (mapRef.current) {
-    //         const map = mapRef.current.getMap();
-    //         const mapBounds = getMapBounds(newMarkers);
-    //         map.fitBounds(mapBounds);
-    //     }
-    // }
-
-
     const lineData = {
         type: "FeatureCollection",
         features: [
@@ -94,10 +77,10 @@ export default function LocationAggregatorMap() {
         ],
     };
 
-    const Markers = activeMarkers.map((marker) => (
+    const Markers = activeMarkers.map((marker, index) => (
         <>
             <Marker
-                color={markerColors}
+                color={index === activeMarkers.length - 1 ? "red" : "green"}
                 key={`${marker.longitude}_${marker.latitude}`}
                 longitude={marker.longitude}
                 latitude={marker.latitude}

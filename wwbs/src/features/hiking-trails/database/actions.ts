@@ -1,5 +1,4 @@
 import { db, prisma } from "@/database/db";
-import { HikingTrail } from "./types";
 
 export const fetchHikingTrails = async () => {
   try {
