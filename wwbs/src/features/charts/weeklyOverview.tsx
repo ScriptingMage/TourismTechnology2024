@@ -19,10 +19,10 @@ import React from "react";
 const chartData = [
     {month: "Monday", total: 30, booked: 5, notBooked: 25},
     {month: "Tuesday", total: 30, booked: 8, notBooked: 22},
-    {month: "Wednesday", total: 26, booked: 2, notBooked: 24},
-    {month: "Thursday", total: 25, booked: 4, notBooked: 21},
-    {month: "Friday", total: 15, booked: 9, notBooked: 6},
-    {month: "Saturday", total: 26, booked: 12, notBooked: 14},
+    {month: "Wednesday", total: 30, booked: 2, notBooked: 28},
+    {month: "Thursday", total: 30, booked: 4, notBooked: 26},
+    {month: "Friday", total: 30, booked: 9, notBooked: 21},
+    {month: "Saturday", total: 30, booked: 12, notBooked: 18},
     {month: "Sunday", total: 30, booked: 18, notBooked: 12},
 ];
 
