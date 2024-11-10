@@ -31,12 +31,16 @@ const chartData = [
 
 const chartConfig = {
     total: {
-        label: "Bookings",
-        color: "#4CAF50",
+        label: "Total",
+        color: "#a3ea93",
     },
     booked: {
         label: "Bookings",
-        color: "#F44336",
+        color: "#4CAF50",
+    },
+    notBooked: {
+        label: "Not Booked",
+        color: "#4CAF50",
     },
 } satisfies ChartConfig;
 
@@ -85,7 +89,7 @@ export default function WeeklyOverview() {
                         </Bar>
                         <Bar
                             dataKey="notBooked"
-                            fill="#4CAF50"
+                            fill="#a3ea93"
                             radius={[0, 5, 5, 0]}
                             stackId="a"
                         >

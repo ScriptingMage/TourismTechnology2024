@@ -1,10 +1,12 @@
+import HeroImg from "@/app/public/hidethepainharold.jpg";
+
 export default function Home() {
   return (
-    <main className="flex-grow">
-        <div className="relative isolate overflow-hidden pt-14">
+    <main className="flex-grow flex flex-col">
+        <div className="relative isolate overflow-hidden flex-grow">
             <img
                 alt=""
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2830&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"
+                src={HeroImg.src}
                 className="absolute inset-0 -z-10 h-full w-full object-cover"
             />
             <div
@@ -19,16 +21,15 @@ export default function Home() {
                     className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
                 />
             </div>
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+            <div className="mx-auto h-full w-full absolute px-6 lg:px-8">
+                <div className="mx-auto py-32 h-full sm:py-48 lg:py-56 flex flex-col justify-center items-center w-full align-middle">
                     <div className="text-center">
-                        <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl">
-                            Data to enrich your online business
+                        <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-7xl drop-shadow-2xl">
+                            Embark on a journey
                         </h1>
-                        <p className="mt-8 text-pretty text-lg font-medium text-gray-400 sm:text-xl/8">
-                            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-                            fugiat veniam occaecat.
-                        </p>
+                        <h2 className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-3xl pt-4 drop-shadow-2xl">
+                            Go Gnome
+                        </h2>
                         <div className="mt-10 flex items-center justify-center gap-x-6">
                             <a
                                 href="#"

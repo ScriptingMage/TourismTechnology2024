@@ -19,8 +19,8 @@ import {
 } from "@/components/ui/chart";
 
 const chartData = [
-    {status: "Booked", visitors: 275, fill: "#F44336"},
-    {status: "Free", visitors: 200, fill: "#4CAF50"},
+    {status: "Booked", visitors: 275, fill: "#4CAF50"},
+    {status: "Free", visitors: 200, fill: "#a3ea93"},
 ];
 
 const chartConfig = {

@@ -19,6 +19,8 @@ export function HeaderBar() {
   return (
     <header className="bg-white shadow border-b-2">
       <div className="mx-auto max-w-7xl h-20 px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div className="flex gap-4">
+
         <a href="/" className="max-h-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -38,6 +40,7 @@ export function HeaderBar() {
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
           {title}
         </h1>
+        </div>
         <div className="flex gap-4">
           <a href="/hiking-trails">User Showcase</a>
           <a href="/admin">Admin showcase</a>
