@@ -55,7 +55,16 @@ export default function LocationAggregatorMap() {
             const mapBounds = getMapBounds(newMarkers);
             map.fitBounds(mapBounds);
         }
+        const firstTrackPoint = trackPoints[0];
+        if(firstTrackPoint) {
+            return [{
+                longitude: firstTrackPoint[0],
+                latitude: firstTrackPoint[1],
+                name: "Start"
+            }, ...newMarkers];
+        }
         return newMarkers;
+
     }, [accomodations]);
 
     const lineData = {
