@@ -21,7 +21,7 @@ export const HikingTrailCard = ({ hikingTrail }: HikingTrailsCardProps) => {
         <div className="w-[400px] flex-shrink-0 relative">
           <div className="aspect-w-16 aspect-h-9 bg-gray-300">
             <Image
-              src={Thumbnails[hikingTrail.id % 2]}
+              src={Thumbnails[hikingTrail.id % 5]}
               alt=""
               className="w-full h-full object-cover"
               fill={true}
