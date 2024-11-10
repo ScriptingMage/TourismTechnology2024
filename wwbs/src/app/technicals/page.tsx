@@ -7,8 +7,8 @@ export default function TechnicalPage() {
             <h2 className="mb-2 w-full text-center pt-4 text-2xl font-semibold text-gray-900 dark:text-white">
                 No Internet? No Problem!
             </h2>
-            <div className="grid-cols-2 grid">
-                <Card className="space-y-8 border bg-white border-gray-500 p-4 my-4 container mx-auto py-4 max-w-xl">
+            <div className="grid-cols-3 grid gap-4 px-4">
+                <Card className="space-y-8 border bg-white border-gray-500 p-4 my-4 mx-auto py-4 max-w-xl">
                     <div className="text-2xl font-bold text-center">
                         The Hardware
                     </div>
@@ -33,6 +33,28 @@ export default function TechnicalPage() {
                     </div>
 
                 </Card>
+                <div className="flex justify-center">
+                <Card className=" rounded-none shadow-lg border-none font-mono p-8 w-full max-w-sm">
+                    <div>#######################</div>
+                    <div>12.08.2025</div>
+                    <div>-----------------------</div>
+                    <div>Max Mustermann</div>
+                    <div>2 Personen</div>
+                    <div> +43 123 456789</div>
+                    <div>-----------------------</div>
+                    <div>Jane Doe</div>
+                    <div>3 Personen</div>
+                    <div> +43 123 456789</div>
+                    <div>-----------------------</div>
+                    <div>#######################</div>
+                    <div>13.08.2025</div>
+                    <div>-----------------------</div>
+                    <div>Hideo Kojima</div>
+                    <div>1 Person</div>
+                    <div> +43 123 456789</div>
+                    <div>-----------------------</div>
+                </Card>
+                </div>
                 <Card className="space-y-8 border bg-white border-gray-500 p-4 my-4 container mx-auto py-4 max-w-xl">
                     <div className="text-2xl font-bold text-center">
                         The Software
