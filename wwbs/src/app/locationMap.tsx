@@ -2,14 +2,11 @@
 // components/Map.jsx
 import React, {useEffect, useMemo, useRef, useState} from "react";
 import {Map, Marker, Source, Layer, MapRef} from "react-map-gl";
-import DeckGL from "@deck.gl/react";
+
 import "mapbox-gl/dist/mapbox-gl.css";
-import mapboxgl, {LngLatBoundsLike} from "mapbox-gl";
+import  {LngLatBoundsLike} from "mapbox-gl";
 import {INITIAL_VIEW_STATE} from "../lib/mapconfig.js";
-import {atom} from "jotai";
-import {fetchAccommodationsForHikingTrail} from "@/features/accommodations/database/actions";
 import {useAtom} from "jotai";
-import {BookingStage} from "@/features/bookings/database/types";
 import {bookingStagesAtom} from "@/lib/atoms";
 
 const markerColors = "red";
@@ -78,13 +75,8 @@ export default function LocationAggregatorMap() {
     };
 
     const Markers = activeMarkers.map((marker, index) => {
-        console.log(marker)
-        console.log(index)
-        console.log(activeMarkers.length)
         const shouldBeGreen = index === activeMarkers.length - 1;
-        console.log(shouldBeGreen)
         const color = shouldBeGreen ? "green" : "red";
-        console.log(color)
         return (
             <>
                 <Marker
